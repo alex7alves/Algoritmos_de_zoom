@@ -29,21 +29,6 @@ int main()
 
     VizinhoMaisProximo(tamanho,fator,imagem,zoom);
 
-   // Liberando memoria alocada
- /*  for(int i=0;i<tamanho;i++){
-        for(int j=0;j<tamanho;j++){
-           free(imagem[i]);
-
-        }
-    }
-     for(int i=0;i<(fator*tamanho);i++){
-        for(int j=0;j<(fator*tamanho);j++){
-           free(zoom[i]);
-
-        }
-    }
-     free(imagem);
-     free(zoom);*/
     return 0;
 }
 
