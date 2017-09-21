@@ -50,7 +50,7 @@ void MostraImagem()
     }
 
 // Criando a matriz para poder mostrar
-     Mat Mostrar(image.rows,image.cols,image.type());
+    Mat Mostrar(image.rows,image.cols,image.type());
 
     for(int i=0; i< image.rows ;i++)
     {
@@ -69,12 +69,29 @@ void MostraImagem()
     waitKey();
 
 }
+void Centro_Imagem(int fator){
+    // Fazendo a janela central
+     Mat imagem = imread("C:\\Users\\alve\\Desktop\\Nova pasta\\Testes\\im.png");
+    int i = (imagem.rows/fator) -(imagem.rows/(2*fator));
+    int j = (imagem.cols/fator) -(imagem.cols/(2*fator));
+    int i2 = (imagem.rows/fator) +(imagem.rows/(2*fator));
+    int j2 = (imagem.cols/fator) +(imagem.cols/(2*fator));
+    Mat Janela(imagem.rows/fator,imagem.cols/fator,imagem.type());
+    for(int k=i,linha=0;k<i2,linha<Janela.rows ;k++,linha++){
+        for(int w=j,coluna=0;w<j2,coluna<Janela.cols;w++,coluna++){
+            Janela.at<Vec3b>(linha,coluna) = imagem.at<Vec3b>(k,w);;
+       }
 
+    }
+    imshow("Janela",Janela);
+    waitKey();
+}
 // resizeWindow(const string& winname, int width, int height)¶
 int main()
 {
-    MostraImagem();
-
+   // MostraImagem();
+      Mat image = imread("C:\\Users\\alve\\Desktop\\Nova pasta\\Testes\\im.png");
+Centro_Imagem(2);
 
     return 0;
 
