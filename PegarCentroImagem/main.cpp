@@ -21,8 +21,39 @@
 using namespace std;
 using namespace cv;
 
+void AlocarCanais(int ***r,int ***g,int ***b,Mat img);
+void SepararCanais(int **r,int **g,int **b,Mat image);
+void ModificarCanais(int **r,int **g,int **b,Mat image);
+void MostraImagem(Mat image,int **r,int **g,int **b);
+void Centro_Imagem(int fator);
+
+int main()
+{
+
+    Mat image = imread("C:\\Users\\alve\\Desktop\\Nova pasta\\Testes\\im.png");
+
+     // Definindo canais
+     int **R,**G,**B;
+     // Alocar canais passando o endereço de cada matriz
+     AlocarCanais(&R,&G,&B,image);
+     // Separando os canais da imagem original
+     SepararCanais(R,G,B,image);
+     // Modificando canais
+     ModificarCanais(R,G,B,image);
+
+     MostraImagem(image,R,G,B);
+
+    //  Centro_Imagem(2);
+
+    return 0;
+
+}
+
+
+
 // *** endereço da matriz dinamica
-void AlocarCanais(int ***r,int ***g,int ***b,Mat img){
+void AlocarCanais(int ***r,int ***g,int ***b,Mat img)
+{
     //*x -> Para criar o valor apontado
     *r = (int **)malloc((img.rows)*sizeof(int*));
     *g = (int **)malloc((img.rows)*sizeof(int*));
@@ -36,7 +67,8 @@ void AlocarCanais(int ***r,int ***g,int ***b,Mat img){
 
 }
 
-void SepararCanais(int **r,int **g,int **b,Mat image){
+void SepararCanais(int **r,int **g,int **b,Mat image)
+{
 
      Vec3i  color;
      for(int i=0; i< image.rows ;i++)
@@ -51,7 +83,8 @@ void SepararCanais(int **r,int **g,int **b,Mat image){
      }
 }
 
-void ModificarCanais(int **r,int **g,int **b,Mat image){
+void ModificarCanais(int **r,int **g,int **b,Mat image)
+{
 
      // Fazendo modificações nos canais
     for(int i=0; i< image.rows ;i++)
@@ -97,7 +130,8 @@ void MostraImagem(Mat image,int **r,int **g,int **b)
     waitKey();
 
 }
-void Centro_Imagem(int fator){
+void Centro_Imagem(int fator)
+{
     // Fazendo a janela central
      Mat imagem = imread("C:\\Users\\alve\\Desktop\\Nova pasta\\Testes\\im.png");
     int i = (imagem.rows/fator) -(imagem.rows/(2*fator));
@@ -114,27 +148,3 @@ void Centro_Imagem(int fator){
     imshow("Janela",Janela);
     waitKey();
 }
-// resizeWindow(const string& winname, int width, int height)¶
-int main()
-{
-
-    Mat image = imread("C:\\Users\\alve\\Desktop\\Nova pasta\\Testes\\im.png");
-
-     // Definindo canais
-     int **R,**G,**B;
-     // Alocar canais passando o endereço de cada matriz
-     AlocarCanais(&R,&G,&B,image);
-     // Separando os canais da imagem original
-     SepararCanais(R,G,B,image);
-     // Modificando canais
-     ModificarCanais(R,G,B,image);
-
-     MostraImagem(image,R,G,B);
-
-    //  Centro_Imagem(2);
-
-    return 0;
-
-}
-
-
