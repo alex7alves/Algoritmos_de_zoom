@@ -21,14 +21,24 @@
 using namespace std;
 using namespace cv;
 
-void MostraImagem()
-{
+// *** endereço da matriz dinamica
+void AlocarCanais(int ***r,int ***g,int ***b,Mat img){
+    //*x -> Para criar o valor apontado
+    *r = (int **)malloc((img.rows)*sizeof(int*));
+    *g = (int **)malloc((img.rows)*sizeof(int*));
+    *b = (int **)malloc((img.rows)*sizeof(int*));
+    for(int i=0;i<img.rows;i++){
+        (*r)[i] = (int *)malloc(img.cols*sizeof(int));
+        (*g)[i] = (int *)malloc(img.cols*sizeof(int));
+        (*b)[i] = (int *)malloc(img.cols*sizeof(int));
 
-   Mat image = imread("C:\\Users\\alve\\Desktop\\Nova pasta\\Testes\\im.png");
-   //   Mat image = imread("C:\\Users\\alve\\Desktop\\Nova pasta\\Testes\\homerfeliz.png");
-   int r[image.rows][image.cols],g[image.rows][image.cols],b[image.rows][image.cols];
-   Vec3i  color;
+    }
 
+}
+
+void SepararCanais(int **r,int **g,int **b,Mat image){
+
+     Vec3i  color;
      for(int i=0; i< image.rows ;i++)
      {
         for(int j=0; j<image.cols ; j++)
@@ -38,9 +48,12 @@ void MostraImagem()
           g[i][j]=  color[1];
           r[i][j]=  color[2];
         }
-
      }
-    // Fazendo modificações nos canais
+}
+
+void ModificarCanais(int **r,int **g,int **b,Mat image){
+
+     // Fazendo modificações nos canais
     for(int i=0; i< image.rows ;i++)
     {
         for(int j=0; j<image.cols ; j++)
@@ -59,10 +72,14 @@ void MostraImagem()
         }
 
     }
+}
+
+void MostraImagem(Mat image,int **r,int **g,int **b)
+{
 
 // Criando a matriz para poder mostrar
     Mat Mostrar(image.rows,image.cols,image.type());
-
+    Vec3i  color;
     for(int i=0; i< image.rows ;i++)
     {
         for(int j=0; j<image.cols ; j++)
@@ -100,8 +117,20 @@ void Centro_Imagem(int fator){
 // resizeWindow(const string& winname, int width, int height)¶
 int main()
 {
-    MostraImagem();
+
     Mat image = imread("C:\\Users\\alve\\Desktop\\Nova pasta\\Testes\\im.png");
+
+     // Definindo canais
+     int **R,**G,**B;
+     // Alocar canais passando o endereço de cada matriz
+     AlocarCanais(&R,&G,&B,image);
+     // Separando os canais da imagem original
+     SepararCanais(R,G,B,image);
+     // Modificando canais
+     ModificarCanais(R,G,B,image);
+
+     MostraImagem(image,R,G,B);
+
     //  Centro_Imagem(2);
 
     return 0;
