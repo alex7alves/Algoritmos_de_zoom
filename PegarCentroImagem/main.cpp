@@ -1,5 +1,14 @@
+
+/*
+    Autor : Alex Alves
+
+    Programa para pegar os canais do centro da  imagem
+    e mostrar eles moificados
+
+*/
+
 #include <iostream>
-#include <string>
+#include <string.h>
 #include <opencv2/opencv.hpp>
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
@@ -36,13 +45,15 @@ void MostraImagem()
     {
         for(int j=0; j<image.cols ; j++)
         {
-            if (i <30){
-                 r[i][j] = 20 ;
-                 b[i][j] = 200 ;
-            }
-             if (i >30){
-                 r[i][j] = 100 ;
+            if (i <50){
+                 r[i][j] = 70 ;
                  b[i][j] = 120 ;
+                 //g[i][j] = 40;
+            }
+             if (i >50){
+                 r[i][j] = -20 ;
+                 b[i][j] = -90 ;
+                 //g[i][j]= 60;
             }
 
         }
@@ -89,9 +100,9 @@ void Centro_Imagem(int fator){
 // resizeWindow(const string& winname, int width, int height)¶
 int main()
 {
-   // MostraImagem();
-      Mat image = imread("C:\\Users\\alve\\Desktop\\Nova pasta\\Testes\\im.png");
-Centro_Imagem(2);
+    MostraImagem();
+    Mat image = imread("C:\\Users\\alve\\Desktop\\Nova pasta\\Testes\\im.png");
+    //  Centro_Imagem(2);
 
     return 0;
 
